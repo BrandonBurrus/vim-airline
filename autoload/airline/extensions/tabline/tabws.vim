@@ -78,7 +78,6 @@ endfunction
 
 function! airline#extensions#tabline#tabws#get()
   let cur_buf = bufnr('%')
-  let buffer_label = get(g:, 'airline#extensions#tabline#buffers_label', 'buffers')
   let tab_label = get(g:, 'airline#extensions#tabline#tabs_label', 'tabs')
   let switch_buffers_and_tabs = get(g:, 'airline#extensions#tabline#switch_buffers_and_tabs', 0)
 
@@ -116,7 +115,6 @@ function! airline#extensions#tabline#tabws#get()
     let ignore_update = !AppendBuffers(0)
   else
     if !switch_buffers_and_tabs
-      call AppendLabel(buffer_label)
       let ignore_update = !AppendBuffers(0)
     else
       call AppendLabel(tab_label)
@@ -133,15 +131,12 @@ function! airline#extensions#tabline#tabws#get()
   " Add right tabline content
   if showing_mode <= 1 " Tabs only mode
     call AppendLabel(tab_label)
-  elseif showing_mode == 2 " Buffers only mode
-    call AppendLabel(buffer_label)
   else
     if !switch_buffers_and_tabs
       call AppendTabs(1)
       call AppendLabel(tab_label)
     else
       let ignore_update = AppendBuffers(1)
-      call AppendLabel(buffer_label)
     endif
   endif
 
